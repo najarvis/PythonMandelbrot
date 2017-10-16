@@ -9,3 +9,5 @@ Python + Pygame. I am using python 3, however I think a few simple tweaks should
 
 # Controls
 Up and down arrow keys control how large the next zoom level will be. Click anywhere to zoom in.
+
+![One of the generated images](https://raw.githubusercontent.com/najarvis/PythonMandelbrot/master/test.png)
