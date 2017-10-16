@@ -27,9 +27,6 @@ colors = [(lerp(color_stops[i][0], color_stops[i+1][0], t / (num_colors / len(co
            lerp(color_stops[i][1], color_stops[i+1][1], t / (num_colors / len(color_stops))),
            lerp(color_stops[i][2], color_stops[i+1][2], t / (num_colors / len(color_stops)))) for i in range(-1, len(color_stops)-1) for t in range(num_colors // len(color_stops))]
 
-#print(colors)
-
-
 def get_color(c, max_iterations):
     i = 0
     curr_z = complex(0)
@@ -41,7 +38,7 @@ def get_color(c, max_iterations):
 
     return (0, 0, 0)
 
-w, h = 1280, 720
+w, h = 512, 512
 ratio = w / h
 scale = 0.1
 s = w * scale
@@ -75,6 +72,7 @@ surf.unlock()
 pygame.image.save(surf, "LastImage.png")
 
 c = pygame.time.Clock()
+zoom_number = 1
 
 done = False
 while not done:
@@ -91,11 +89,11 @@ while not done:
             current_bounds = (pos1.real, pos1.imag, pos2.real, pos2.imag)
 
             pygame.display.set_caption("Working...")
-            zoom_number += 1
+            zoom_number += 1 / scale 
             surf.lock()
             for y in range(h):
                 for x in range(w):
-                    surf.set_at((x, y), get_color(pos_to_complex(x, y, current_bounds), 100 + 1 * zoom_number))
+                    surf.set_at((x, y), get_color(pos_to_complex(x, y, current_bounds), 100 + 4 * zoom_number))
             surf.unlock()
 
             pygame.display.set_caption("Done!")
@@ -112,11 +110,11 @@ while not done:
     if keys[pygame.K_SPACE]:
         print(pos_to_complex(*pos, current_bounds))
 
+    screen.blit(surf, (0, 0))
     pygame.draw.rect(screen, (255, 0, 0), (pos[0] - s / 2, pos[1] - (s / ratio) / 2, s, s / ratio), 1)
 
     pygame.display.set_caption(str(pos_to_complex(*pygame.mouse.get_pos(), current_bounds)))
 
-    screen.blit(surf, (0, 0))
     pygame.display.update()
 
 pygame.quit()

@@ -80,7 +80,7 @@ done = False
 while not done and zoom_number < 1000:
     c.tick(60)
     #pos = pygame.mouse.get_pos()
-    pos = complex_to_pos(-1.2439101562500001, -0.3216979166666667, current_bounds)
+    pos = complex_tp_pos(-1.1899036083851098, -0.3040315759313289, current_bounds)
     #print(pos)
 
     for event in pygame.event.get():
